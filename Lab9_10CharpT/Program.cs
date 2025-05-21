@@ -1,8 +1,23 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Lab#9  or  Lab#10");
-//  За бажанням студента для задач можна створювати консольний проект або WinForm
-// Бажано для задач лаб. робіт створити окремі класи
-// Виконання  виконати в стилі багатозаданості :
-//   Lab9T2  lab9task2 = new Lab9T2; lab9task2.Run();
-// При бажанні можна створити багатозадачний режим виконання задач.
+﻿using System;
 
+namespace StudentLife
+{
+    internal class Program
+    {
+        static void Main()
+        {
+            var studentLife = new StudentLife();
+
+            // Підписуємося на події (реакції)
+            var dailyRoutine = new DailyRoutineTask();
+            var examPrep = new ExamPreparationTask();
+            var party = new PartyTask();
+
+            studentLife.StudentEvent += dailyRoutine.HandleEvent;
+            studentLife.StudentEvent += examPrep.HandleEvent;
+            studentLife.StudentEvent += party.HandleEvent;
+
+            studentLife.StartLife(7);  // Симулюємо 7 днів життя студента
+        }
+    }
+}
