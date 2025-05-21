@@ -4,11 +4,17 @@ namespace StudentLife
 {
     internal class ExamPreparationTask
     {
-        private int daysLeft = 5;
+        private int daysLeft;
+        private const int DefaultDays = 5;
+
+        public ExamPreparationTask()
+        {
+            daysLeft = DefaultDays;
+        }
 
         public void HandleEvent(object sender, StudentEventArgs e)
         {
-            if (e.EventName == "ExamPrep")
+            if (e != null && string.Equals(e.EventName, "ExamPrep", StringComparison.OrdinalIgnoreCase))
             {
                 if (daysLeft > 0)
                 {
@@ -19,8 +25,9 @@ namespace StudentLife
                 else
                 {
                     Console.WriteLine("Настав день екзамену: пишемо роботу");
-                    daysLeft = 5; // Скидаємо цикл, щоб було більше динаміки
+                    daysLeft = DefaultDays; // Починаємо новий цикл підготовки
                 }
+
                 Console.WriteLine(new string('-', 40));
             }
         }

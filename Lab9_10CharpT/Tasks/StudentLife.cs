@@ -7,30 +7,30 @@ namespace StudentLife
     public class StudentLife
     {
         public event StudentEventHandler StudentEvent;
-        private Random rnd = new Random();
 
-        private string[] events = { "DailyRoutine", "ExamPrep", "Party" };
+        private readonly Random rnd = new Random();
+        private readonly string[] events = { "DailyRoutine", "ExamPrep", "Party" };
 
         public void StartLife(int days)
         {
             for (int day = 1; day <= days; day++)
             {
                 Console.WriteLine($"\n--- День {day} ---");
+
+                // Випадкова подія дня
                 string currentEvent = events[rnd.Next(events.Length)];
-                StudentEventArgs args = new StudentEventArgs(currentEvent, day);
+
+                // Створюємо аргументи події
+                var args = new StudentEventArgs(currentEvent, day);
+
+                // Відправляємо всім підписаним обробникам
                 OnStudentEvent(args);
             }
         }
 
         protected virtual void OnStudentEvent(StudentEventArgs e)
         {
-            if (StudentEvent != null)
-            {
-                foreach (StudentEventHandler handler in StudentEvent.GetInvocationList())
-                {
-                    handler(this, e);
-                }
-            }
+            StudentEvent?.Invoke(this, e);
         }
     }
 

@@ -6,8 +6,9 @@ namespace StudentLife
     {
         public void HandleEvent(object sender, StudentEventArgs e)
         {
-            if (e.EventName == "DailyRoutine")
+            if (e != null && string.Equals(e.EventName, "DailyRoutine", StringComparison.OrdinalIgnoreCase))
             {
+                Console.WriteLine("Щоденний розпорядок студента:");
                 Console.WriteLine("Прокидаємось о 7:30");
                 Console.WriteLine("Ранкова кава та пара о 8:00");
                 Console.WriteLine("Лекції, конспекти, нотатки");
